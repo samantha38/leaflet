@@ -4,6 +4,10 @@ html, body, #root {
   padding: 0;
 }
 
+.leaflet-container {
+  z-index: 0;
+}
+
 .map-wrapper {
   height: 100vh;
   width: 100vw;
@@ -32,4 +36,53 @@ html, body, #root {
 .controls button {
   padding: 8px 12px;
   cursor: pointer;
+}
+
+.suggestions {
+  list-style: none;
+  padding: 0;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  background: white;
+  max-width: 300px;
+  position: absolute;
+  z-index: 1000;
+}
+
+.suggestions li {
+  padding: 8px;
+  cursor: pointer;
+  color: black;
+}
+
+.suggestions li:hover {
+  background: #f0f0f0;
+}
+
+.autocomplete-container {
+  position: relative;
+  width: 300px;
+}
+
+.autocomplete-list {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 2000;
+}
+
+.autocomplete-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  color: black;
+}
+
+.autocomplete-item:hover {
+  background-color: #f2f2f2;
 }
