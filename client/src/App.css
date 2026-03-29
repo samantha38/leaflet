@@ -88,3 +88,28 @@ html, body, #root {
 .leaflet-pane img {
   position: absolute !important;
 }
+
+.route-info {
+  position: absolute;
+  bottom: 20px;
+  z-index: 1000;
+  display: flex;
+  left: 50%;
+  transform: translateX(-50%);
+  gap: 30px;
+}
+
+.route-card {
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 180px;
+  font-size: 12px;
+  border: 1px solid black;
+  color: black;
+}
+
+.route-card.active {
+  border: 2px solid green;
+}

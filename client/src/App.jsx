@@ -19,6 +19,7 @@ function App() {
   const [destinationCoords, setDestinationCoords] = useState(null);
   const [routes, setRoutes] = useState([]);
   const [recommendedEmission, setRecommendedEmission] = useState(null);
+  const [selectedRouteIndex, setSelectedRouteIndex] = useState(null);
 
   const findRoutes = async () => {
 
@@ -62,13 +63,30 @@ function App() {
         </button>
 
       </div>
-
+        <div className="route-info">
+  {routes.map((route, index) => (
+    <div
+      key={index}
+      className={`route-card ${
+        index === selectedRouteIndex ? "active" : ""
+      }`}
+      onClick={() => setSelectedRouteIndex(index)}
+    >
+      <strong>Route {index + 1}</strong>
+      <p>Distance: {route.distanceKm.toFixed(2)} km</p>
+      <p>Time: {route.durationMin.toFixed(1)} min</p>
+      <p>Emissions: {route.emissionsKg.toFixed(2)} kg</p>
+    </div>
+  ))}
+</div>
       {position && (
       <MapView
-      position={position}
-      routes={routes}
-      recommendedEmission={recommendedEmission}
-  />
+  position={position}
+  routes={routes}
+  recommendedEmission={recommendedEmission}
+  selectedRouteIndex={selectedRouteIndex}
+  setSelectedRouteIndex={setSelectedRouteIndex}
+/>
 )}
 
     </div>
