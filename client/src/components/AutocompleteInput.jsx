@@ -1,47 +1,43 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { fetchSuggestions } from "../services/api";
-import { useRef } from "react";
 
 export default function AutocompleteInput({
-  destination,
-  setDestination,
-  setDestinationCoords
+  value,
+  setValue,
+  setCoords,
+  placeholder
 }) {
   const [suggestions, setSuggestions] = useState([]);
   const debounceRef = useRef(null);
 
-  const handleChange = (value) => {
-  setDestination(value);
+  const handleChange = (val) => {
+    setValue(val);
 
-  if (!value) {
-    setSuggestions([]);
-    return;
-  }
-
-  // clear previous timer
-  if (debounceRef.current) {
-    clearTimeout(debounceRef.current);
-  }
-
-  // set new timer
-  debounceRef.current = setTimeout(async () => {
-    try {
-      if (value.length >= 3) {
-        const data = await fetchSuggestions(value);
-        setSuggestions(data);
-      }
-    } catch (err) {
-      console.error("Autocomplete error:", err);
+    if (!val) {
+      setSuggestions([]);
+      return;
     }
-  }, 400); // 400ms delay
-};
+
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+
+    debounceRef.current = setTimeout(async () => {
+      try {
+        if (val.length >= 3) {
+          const data = await fetchSuggestions(val);
+          setSuggestions(data);
+        }
+      } catch (err) {
+        console.error("Autocomplete error:", err);
+      }
+    }, 400);
+  };
 
   return (
     <div className="autocomplete-container">
       <input
         type="text"
-        placeholder="Enter destination"
-        value={destination}
+        placeholder={placeholder}
+        value={value}
         onChange={(e) => handleChange(e.target.value)}
       />
 
@@ -51,8 +47,11 @@ export default function AutocompleteInput({
             <li
               key={i}
               onClick={() => {
-                setDestination(s.label);
-                setDestinationCoords(s.coordinates);
+                setValue(s.label);
+
+                // ✅ FIX: convert [lng, lat] → [lat, lng]
+                setCoords([s.coordinates[1], s.coordinates[0]]);
+
                 setSuggestions([]);
               }}
             >

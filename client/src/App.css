@@ -4,51 +4,88 @@ html, body, #root {
   padding: 0;
 }
 
-
-
+/* MAIN WRAPPER */
 .map-wrapper {
   height: 100vh;
   width: 100vw;
+  position: relative;
+  overflow: hidden;
 }
 
+/* MAP */
 .map-container {
   height: 100%;
   width: 100%;
 }
 
+/* CONTROLS PANEL */
 .controls {
   position: absolute;
-  top: 20px;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
+
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
+
+  background: rgba(255, 255, 255, 0.95);
+  padding: 12px;
+  border-radius: 12px;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
+/* INPUT GROUP */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* INPUTS */
 .controls input {
-  padding: 8px;
-  width: 250px;
+  padding: 10px;
+  width: 240px;
+  font-size: 16px; /* prevents zoom on mobile */
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
+/* BUTTONS */
 .controls button {
-  padding: 8px 12px;
+  padding: 8px;
   cursor: pointer;
+  border-radius: 6px;
+  border: none;
+  background: #2c7be5;
+  color: white;
 }
 
+/* AUTOCOMPLETE */
+.autocomplete-container {
+  position: relative;
+  width: 100%;
+}
+
+/* SUGGESTIONS */
 .suggestions {
   list-style: none;
   padding: 0;
   margin: 5px 0;
   border: 1px solid #ddd;
   background: white;
-  max-width: 300px;
   position: absolute;
-  z-index: 1000;
+  width: 100%;
+  z-index: 2000;
+  border-radius: 6px;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 .suggestions li {
-  padding: 8px;
+  padding: 10px;
   cursor: pointer;
   color: black;
 }
@@ -57,54 +94,126 @@ html, body, #root {
   background: #f0f0f0;
 }
 
-.autocomplete-container {
-  position: relative;
-  width: 300px;
+/* ROUTE INFO */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.autocomplete-list {
-  position: absolute;
-  top: 40px;
-  left: 0;
+/* MAIN WRAPPER */
+.map-wrapper {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+}
+
+/* MAP */
+.map-container {
+  height: 100%;
   width: 100%;
-  background: white;
+}
+
+/* CONTROLS PANEL */
+.controls {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  background: rgba(255, 255, 255, 0.95);
+  padding: 12px;
+  border-radius: 12px;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* INPUT GROUP */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* INPUTS */
+.controls input {
+  padding: 10px;
+  width: 240px;
+  font-size: 16px; /* prevents zoom on mobile */
   border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* BUTTONS */
+.controls button {
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 6px;
+  border: none;
+  background: #2c7be5;
+  color: white;
+}
+
+/* AUTOCOMPLETE */
+.autocomplete-container {
+  position: relative;
+  width: 100%;
+}
+
+/* SUGGESTIONS */
+.suggestions {
+  list-style: none;
+  padding: 0;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  background: white;
+  position: absolute;
+  width: 100%;
+  z-index: 2000;
   border-radius: 6px;
   max-height: 200px;
   overflow-y: auto;
-  z-index: 2000;
 }
 
-.autocomplete-item {
-  padding: 8px 12px;
+.suggestions li {
+  padding: 10px;
   cursor: pointer;
   color: black;
 }
 
-.autocomplete-item:hover {
-  background-color: #f2f2f2;
+.suggestions li:hover {
+  background: #f0f0f0;
 }
 
-.leaflet-pane img {
-  position: absolute !important;
-}
-
+/* ROUTE INFO */
 .route-info {
   position: absolute;
   bottom: 20px;
   z-index: 1000;
-  display: flex;
+
+  display: flex-inline;
+  gap: 20px;
+
   left: 50%;
   transform: translateX(-50%);
-  gap: 30px;
+
+  max-width: 90%;
+  overflow-x: auto;
 }
 
+/* ROUTE CARD */
 .route-card {
   background: white;
   padding: 10px;
   border-radius: 8px;
   cursor: pointer;
-  width: 180px;
+  min-width: 160px;
   font-size: 12px;
   border: 1px solid black;
   color: black;
@@ -112,4 +221,163 @@ html, body, #root {
 
 .route-card.active {
   border: 2px solid green;
+}
+
+/* LEAFLET FIX */
+.leaflet-pane img {
+  position: absolute !important;
+}
+
+/* 📱 MOBILE RESPONSIVENESS */
+@media (max-width: 768px) {
+
+  .controls {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  width: 92%;
+  max-height: 35vh;   /* ✅ LIMIT HEIGHT */
+  overflow-y: auto;   /* ✅ SCROLL IF NEEDED */
+
+  /* background: rgba(255, 255, 255, 0.95); */
+  padding: 10px;
+  border-radius: 10px;
+}
+
+  .controls input {
+    width: 100%;
+  }
+
+  .autocomplete-container {
+    width: 100%;
+  }
+
+  .map-container {
+    height: 100vh;
+  }
+
+  .route-info {
+  position: absolute;
+  bottom: 10px;
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  width: 92%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  max-height: 35vh;   /* ✅ LIMIT HEIGHT */
+  overflow-y: auto;   /* ✅ SCROLL */
+}
+
+  .route-card {
+  padding: 8px;
+  font-size: 11px;
+  width: 40%;
+}
+}
+
+/* ROUTE CARD */
+.route-card {
+  opacity: 65%;  /* ✅ transparency */
+  backdrop-filter: blur(8px);            /* ✅ glass effect */
+  -webkit-backdrop-filter: blur(8px);    /* ✅ for mobile */
+
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+
+  font-size: 12px;
+  border: 1px solid rgba(255,255,255,0.4);
+  color: black;
+
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.route-card.active {
+  border: 2px solid green;
+  background: rgba(200, 255, 200, 0.6);
+}
+
+/* LEAFLET FIX */
+.leaflet-pane img {
+  position: absolute !important;
+}
+
+/* 📱 MOBILE RESPONSIVENESS */
+@media (max-width: 768px) {
+
+  .controls {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  width: 92%;
+  max-height: 35vh;   /* ✅ LIMIT HEIGHT */
+  overflow-y: auto;   /* ✅ SCROLL IF NEEDED */
+
+  background: rgba(255, 255, 255, 0.95);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+  .controls input {
+    width: 100%;
+  }
+
+  .autocomplete-container {
+    width: 100%;
+  }
+
+  .map-container {
+    height: 100vh;
+  }
+
+  .route-info {
+  position: absolute;
+  bottom: 10px;
+  z-index: 1000;
+
+  display: grid;
+  flex-direction: column;
+  gap: 10px;
+
+  width: 92%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  max-height: 35vh;   /* ✅ LIMIT HEIGHT */
+  overflow-y: auto;   /* ✅ SCROLL */
+
+  
+  grid-template-columns: repeat(2, 1fr);  /* still 2 per row */
+  gap: 8px;
+
+}
+
+.route-card {
+  width: 100%;   /* ✅ remove 40% */
+}
+}
+
+  .route-card {
+  padding: 8px;
+  font-size: 11px;
+  width: 40%;
 }

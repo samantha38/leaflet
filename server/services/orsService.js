@@ -12,7 +12,7 @@ async function getRoute(sourceLat, sourceLng, destLat, destLng) {
     ],
 
     alternative_routes: {
-      target_count: 3,   // 🔥 number of routes you want
+      target_count: 2,   // 🔥 number of routes you want
       share_factor: 0.6,
       weight_factor: 1.4
     },
